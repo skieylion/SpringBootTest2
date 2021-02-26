@@ -48,7 +48,8 @@ public class MessageController {
     public Map<String,String> create(@RequestBody Map<String,String> message){
         System.out.println("TEST_REQ");
         message.put("id",String.valueOf(counter++));
-        System.out.println("TEST_REQ_2");
+        System.out.println(message.get("id"));
+        System.out.println(message.get("text"));
         messages.add(message);
         System.out.println("TEST_REQ_3");
         return message;
