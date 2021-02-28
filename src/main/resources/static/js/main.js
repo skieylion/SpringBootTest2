@@ -96,8 +96,12 @@ Vue.component('messages-list', {
     +'</div>',
   created:function(){
     messageApi.get().then(result=>
-        result.json().then(data=>
-            data.forEach(message=>this.messages.push(message))
+        result.json().then(data=> {;
+                data.forEach(message=>{
+                    console.log(message);
+                    this.messages.push(message)
+                });
+            }
         )
     );
   },

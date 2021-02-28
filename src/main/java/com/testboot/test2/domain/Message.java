@@ -1,12 +1,12 @@
 package com.testboot.test2.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
-
-*ссылка с привязкой к времени (добавление нового поля)
-https://youtu.be/mGfiV9WDd6Y?list=PLU2ftbIeotGqSTOVNjT4L3Yfy8jatCdhm&t=574
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -16,8 +16,26 @@ https://youtu.be/mGfiV9WDd6Y?list=PLU2ftbIeotGqSTOVNjT4L3Yfy8jatCdhm&t=574
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.Id.class)
     private Long id;
+    @JsonView(Views.IdName.class)
     private String text;
+
+    @Column(updatable = false)
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
+    @JsonView(Views.FullMessage.class)
+    private LocalDateTime creationDate;
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+
+
 
     public Long getId() {
         return id;
